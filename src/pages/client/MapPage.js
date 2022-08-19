@@ -29,7 +29,7 @@ const MapPage = () => {
             height: "80vh",
             color: "red",
           }}
-          mapboxAccessToken="pk.eyJ1Ijoic2V0aGdyZWdvcnkiLCJhIjoiY2w1emN2MjBhMGRzbzNjcXYwemF2bXVhYSJ9.PFzwjVmO8HlTajvZX9MCSw"
+          mapboxAccessToken="pk.eyJ1Ijoic2V0aGdyZWdvcnkiLCJhIjoiY2w0b29rMHltMDZ6azNubnZlamR4bzBrOSJ9.uyPaXb8Iv6qsmEXJswmuYw"
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
           {ads &&
