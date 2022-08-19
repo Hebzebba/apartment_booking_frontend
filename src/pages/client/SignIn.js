@@ -8,18 +8,38 @@ import life from "../../assets/Frame80.png";
 import projects from "../../assets/Frame81.png";
 import { loginUser } from "../../api/userApi";
 import { Link, useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 const ClientSignIn = () => {
   const [email, setEamil] = useState("");
   const [password, setPassword] = useState("");
+
+  const [status, setStatus] = useState(false);
+
+  const alert = useAlert();
+
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
+    setStatus(true);
     e.preventDefault();
     const response = await loginUser(email, password);
-    if (response.message === "User login successful")
+    if (response.message === "User login successful") {
+      setStatus(false);
+      alert.success(response.message);
       localStorage.setItem("user_email", response.user.email);
-    localStorage.setItem("user_name", response.user.name);
-    navigate("/", { replace: true });
+      localStorage.setItem("user_name", response.user.name);
+      navigate("/", { replace: true });
+    } else {
+      setStatus(false);
+      alert.error("Invalid email or password");
+    }
   };
   return (
     <div className="container mx-auto flex justify-center items-center h-screen">
@@ -102,7 +122,15 @@ const ClientSignIn = () => {
                 type="submit"
                 className="w-full bg-blue-400 my-5 p-1 rounded-md text-white"
               >
-                SIGN IN
+                <div>SIGN IN</div>
+                <div>
+                  <ScaleLoader
+                    override={override}
+                    loading={status}
+                    siz={50}
+                    color="#ffff"
+                  />
+                </div>
               </button>
               <div>
                 <Link to="/signup">
